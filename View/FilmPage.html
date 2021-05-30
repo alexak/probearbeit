@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link href="../Assets/Css/FilmPage.css"  rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img id="login_logo" src="../Assets/Images/logo.svg" style="width: 50px;">
+                </a>
+                <form class="d-flex">
+                    <input id="searchField" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button id="searchButton" class="btn btn-primary" type="button">Search</button>
+                </form>
+            </div>
+        </nav>
+        <div class="content">
+            <div id="filmCards" class="row row-cols-1 row-cols-md-4 g-4">
+                {{FILMCARDS}}
+            </div>
+        </div>
+    <script type="text/javascript">
+        $('#searchButton').on("click", function(event){
+            event.stopPropagation();
+            let value = $('#searchField').val();
+            if (value!='') {
+                $.get('./index.php', {action : "search", value: value} )
+                    .done(function(data) {
+                        let html = $('#filmCards').append(data);
+                        // @todo: implement response
+                    })
+            }
+        });
+
+    </script>
+    </body>
+</html>
